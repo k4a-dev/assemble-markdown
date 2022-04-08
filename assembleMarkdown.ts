@@ -1,3 +1,5 @@
+import { type } from 'os'
+
 type Post = {
   id: string
   content: string
@@ -354,3 +356,5 @@ const assemblyMarkdown = (markdown: string): MarkdownObject[] => {
 // }
 
 export default assemblyMarkdown
+
+export type { MarkdownObject, Post }
