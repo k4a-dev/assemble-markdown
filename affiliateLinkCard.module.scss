@@ -1,0 +1,106 @@
+/** ***************** アフィリエイト ********************/
+.affiliate {
+  margin: 10px 0px 10px 0px;
+  $border-radius: 10px;
+  width: 100%;
+  background: white;
+  border-radius: $border-radius;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+
+  border: 1px solid rgba(black, 0.1);
+
+  .image__comtainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+  }
+
+  img {
+    border-radius: $border-radius;
+    box-shadow: none !important;
+    max-width: 60%;
+    max-height: 150px !important;
+  }
+
+  .textContainer {
+    width: 60%;
+    margin-left: 10px;
+    .linkTitle {
+      font-size: 0.8em;
+      margin-bottom: 10px;
+    }
+
+    .affiliateBtnContainer {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .amazon,
+      .yahoo,
+      .rakuten {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2px;
+
+        font-size: 0.8em;
+        border-radius: 15px;
+        width: 110px;
+        height: 30px;
+        cursor: pointer;
+        color: white;
+      }
+
+      .amazon {
+        background: #f4b139;
+      }
+      .yahoo {
+        background: #ff4d71;
+      }
+      .rakuten {
+        background: #bf0000;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .affiliate {
+    margin: 10px 0px 10px 0px;
+    $border-radius: 10px;
+    width: 100%;
+    border-radius: $border-radius;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+
+    img {
+      border-radius: $border-radius;
+      object-fit: contain;
+    }
+
+    .textContainer {
+      margin-left: 10px;
+      max-height: 100%;
+      .linkTitle {
+        font-size: 0.8em;
+        margin-bottom: 10px;
+        line-height: 1.6em;
+      }
+
+      .affiliateBtnContainer {
+        .amazon,
+        .yahoo,
+        .rakuten {
+          font-size: 0.8em;
+          border-radius: 15px;
+        }
+      }
+    }
+  }
+}
