@@ -1,4 +1,37 @@
-import { MarkdownObject } from 'types'
+type Post = {
+  id: string
+  content: string
+  title: string
+  createdate: string
+  updatedate: string
+  sumbnail: string
+  tags: { [key: string]: string }[]
+}
+
+type MarkdownObject = {
+  i: number
+  tag:
+    | 'h1'
+    | 'h2'
+    | 'h3'
+    | 'h4'
+    | 'h5'
+    | 'br'
+    | 'none'
+    | 'img'
+    | 'video'
+    | 'link'
+    | 'code'
+    | 'ad'
+    | 'affiliate'
+  text: string
+  expand: boolean
+  childExpand: boolean
+  child: MarkdownObject[]
+  src?: string
+  url?: string
+  language?: string
+}
 
 const markdownReg = {
   h1: /^#\s(.*)/,
