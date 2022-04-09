@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { GoogleAdsence, useAdsence } from './Adsense'
 import Affiliate from './affiliateLinkCard'
@@ -29,15 +29,15 @@ type MarkdownObject = {
 }
 // import { MarkdownObject } from 'types'
 
-const AssemblyMarkdown: React.FC<{
+type Props = {
   content: MarkdownObject[]
   id: string
   indent?: number
   documentWrapperClass?: string
   codeStyle?: any
-}> = (props) => {
-  useAdsence()
+}
 
+const AssemblyMarkdown: React.FC<Props> = (props) => {
   return (
     <>
       {props.content.map((elem, index) => {
@@ -142,4 +142,9 @@ const AssemblyMarkdown: React.FC<{
   )
 }
 
-export default AssemblyMarkdown
+const Index: React.FC<Props> = (props) => {
+  useAdsence()
+  return <>{AssemblyMarkdown(props)}</>
+}
+
+export default React.memo(Index)

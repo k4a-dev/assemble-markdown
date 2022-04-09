@@ -6,6 +6,7 @@ const useAdsence = () => {
 
   useEffect(() => {
     console.log(asPath)
+
     try {
       ;(window.adsbygoogle = window.adsbygoogle || []).push({})
     } catch (err) {
