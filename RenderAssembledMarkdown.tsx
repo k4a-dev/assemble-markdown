@@ -112,7 +112,7 @@ const AssemblyMarkdown: React.FC<{
                 className={props.documentWrapperClass}
                 style={{
                   borderLeft: `${
-                    props.indent && elem.tag.match(/^h(2|3)/) ? '1px' : '0px'
+                    props.indent && elem.tag.match(/^h(2|3|4)/) ? '1px' : '0px'
                   } dashed rgba(0,0,0,0.1)`,
                   borderRight: '0px',
                   borderTop: '0',
@@ -122,7 +122,7 @@ const AssemblyMarkdown: React.FC<{
               >
                 <div
                   style={{
-                    paddingLeft: `${elem.tag.match(/^h(2|3)/) ? props.indent : 0}px`,
+                    paddingLeft: `${elem.tag.match(/^h(2|3|4)/) ? props.indent : 0}px`,
                     // width: `calc(100% - ${elem.tag !== 'h1' ? props.indent : 0}px)`,
                   }}
                 >
