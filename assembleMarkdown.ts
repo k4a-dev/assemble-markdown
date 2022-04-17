@@ -7,7 +7,7 @@ type Post = {
   createdate: string
   updatedate: string
   sumbnail: string
-  tags: { [key: string]: string }[]
+  tags: string[]
 }
 
 type MarkdownObject = {
