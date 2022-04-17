@@ -32,6 +32,7 @@ type MarkdownObject = {
 type Props = {
   content: MarkdownObject[]
   id: string
+  sumbnail: string
   indent?: number
   documentWrapperClass?: string
   codeStyle?: any
@@ -43,7 +44,12 @@ const AssemblyMarkdown: React.FC<Props> = (props) => {
       {props.content.map((elem, index) => {
         return (
           <React.Fragment key={index + elem.tag + elem.text}>
-            {elem.tag === 'h1' ? <h1 dangerouslySetInnerHTML={{ __html: elem.text }}></h1> : ''}
+            {elem.tag === 'h1' ? <h1 dangerouslySetInnerHTML={{ __html: elem.text }}></h1> : null}
+
+            {elem.tag === 'h1' ? (
+              <img src={`/assets/articles/${props.id}/${props.sumbnail}`} alt="" />
+            ) : null}
+
             {elem.tag === 'h2' ? (
               <h2 data-first={index} dangerouslySetInnerHTML={{ __html: elem.text }}></h2>
             ) : null}
@@ -52,18 +58,16 @@ const AssemblyMarkdown: React.FC<Props> = (props) => {
             ) : null}
             {elem.tag === 'h4' ? (
               <h4 dangerouslySetInnerHTML={{ __html: elem.text }} data-first={index}></h4>
-            ) : (
-              ''
-            )}
+            ) : null}
             {elem.tag === 'h5' ? (
               <h5 dangerouslySetInnerHTML={{ __html: elem.text }} data-first={index}></h5>
-            ) : (
-              ''
-            )}
+            ) : null}
 
             {elem.tag === 'br' ? <br></br> : ''}
 
-            {elem.tag === 'none' ? <div dangerouslySetInnerHTML={{ __html: elem.text }}></div> : ''}
+            {elem.tag === 'none' ? (
+              <div dangerouslySetInnerHTML={{ __html: elem.text }}></div>
+            ) : null}
 
             {elem.tag === 'none' && elem.text == '' ? <br /> : null}
 
@@ -127,6 +131,7 @@ const AssemblyMarkdown: React.FC<Props> = (props) => {
                   }}
                 >
                   <AssemblyMarkdown
+                    sumbnail=""
                     content={elem.child}
                     id={props.id}
                     indent={props.indent}
