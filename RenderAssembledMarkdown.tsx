@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { GoogleAdsence, useAdsence } from './Adsense'
 import Affiliate from './affiliateLinkCard'
@@ -27,7 +27,6 @@ type MarkdownObject = {
   url?: string
   language?: string
 }
-// import { MarkdownObject } from 'types'
 
 type Props = {
   content: MarkdownObject[]
@@ -36,6 +35,25 @@ type Props = {
   indent?: number
   documentWrapperClass?: string
   codeStyle?: any
+}
+
+const CodeWrapper: React.FC = (props) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const target = useRef<HTMLSpanElement>(null)
+
+  const clickHandler = () => {
+    setIsOpen(!isOpen)
+    if (!isOpen) return
+    if (!target.current) return
+    window.scroll({ top: target.current.offsetTop, behavior: 'smooth' })
+  }
+
+  return (
+    <span data-open={isOpen} ref={target} data-code={true}>
+      {props.children}
+      <button onClick={clickHandler}></button>
+    </span>
+  )
 }
 
 const AssemblyMarkdown: React.FC<Props> = (props) => {
@@ -93,17 +111,17 @@ const AssemblyMarkdown: React.FC<Props> = (props) => {
 
             {elem.tag === 'code' ? (
               elem.language == 'text' || !elem.language ? (
-                <SyntaxHighlighter language={elem.language} wrapLongLines style={props.codeStyle}>
-                  {elem.text}
-                  {String(props.codeStyle)}
-                </SyntaxHighlighter>
+                <CodeWrapper>
+                  <SyntaxHighlighter language="text" wrapLongLines style={props.codeStyle}>
+                    {elem.text}
+                  </SyntaxHighlighter>
+                </CodeWrapper>
               ) : (
-                <>
+                <CodeWrapper>
                   <SyntaxHighlighter language={elem.language} style={props.codeStyle}>
                     {elem.text}
-                    {String(props.codeStyle)}
                   </SyntaxHighlighter>
-                </>
+                </CodeWrapper>
               )
             ) : null}
 
@@ -117,7 +135,7 @@ const AssemblyMarkdown: React.FC<Props> = (props) => {
                 style={{
                   borderLeft: `${
                     props.indent && elem.tag.match(/^h(2|3|4)/) ? '1px' : '0px'
-                  } dashed rgba(0,0,0,0.1)`,
+                  } solid rgba(0,0,0,0.1)`,
                   borderRight: '0px',
                   borderTop: '0',
                   display: 'flex',
