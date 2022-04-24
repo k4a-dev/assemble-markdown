@@ -1,9 +1,16 @@
 @import 'styles/color/global.scss';
 
+// ------------------ CodeBlock ------------------ //
 .codeBlock {
   display: block;
-
   position: relative;
+
+  pre {
+    overflow-x: auto !important;
+    border-radius: 10px;
+    overflow-y: auto;
+    padding: 15px !important;
+  }
 
   button {
     width: 100%;
@@ -16,36 +23,36 @@
 
     font-size: 16px;
   }
-  &.fold {
-    &[data-open='true'] {
-      & button {
-        position: relative;
+}
 
-        background: none;
-        border: 1px dashed $color_font;
-        border-top: 0px;
+.codeBlock.fold {
+  &[data-open='true'] {
+    & button {
+      position: relative;
+      background: none;
+      border: 1px dashed $color_font;
+      border-top: 0px;
 
-        &::after {
-          content: '⇧';
-        }
+      &::after {
+        content: '⇧';
+      }
+    }
+  }
+
+  &[data-open='false'] {
+    & button {
+      position: absolute;
+      bottom: 0;
+      background: linear-gradient(180deg, rgba(white, 0), rgba(white, 1));
+
+      &::after {
+        content: '⇩';
       }
     }
 
-    &[data-open='false'] {
-      & button {
-        position: absolute;
-        bottom: 0;
-        background: linear-gradient(180deg, rgba(white, 0), rgba(white, 1));
-
-        &::after {
-          content: '⇩';
-        }
-      }
-
-      pre {
-        max-height: 400px;
-        overflow-y: hidden;
-      }
+    pre {
+      max-height: 400px;
+      overflow-y: hidden;
     }
   }
 }
