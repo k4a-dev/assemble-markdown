@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { RefObject, useEffect, useRef, useState } from 'react'
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { GoogleAdsence, useAdsence } from './Adsense'
 import Affiliate from './affiliateLinkCard'
+
+import styles from './renderAssembledMarkdown.module.scss'
 
 type MarkdownObject = {
   i: number
@@ -41,6 +43,8 @@ const CodeWrapper: React.FC = (props) => {
   const [isOpen, setIsOpen] = useState(false)
   const target = useRef<HTMLSpanElement>(null)
 
+  const [needFold, setNeedFold] = useState(true)
+
   const clickHandler = () => {
     setIsOpen(!isOpen)
     if (!isOpen) return
@@ -48,10 +52,21 @@ const CodeWrapper: React.FC = (props) => {
     window.scroll({ top: target.current.offsetTop, behavior: 'smooth' })
   }
 
+  useEffect(() => {
+    if (!target.current) return
+    const height = target.current.clientHeight
+    if (height < 300) setNeedFold(false)
+    else setNeedFold(true)
+  }, [])
+
   return (
-    <span data-open={isOpen} ref={target} data-code={true}>
+    <span
+      data-open={isOpen}
+      ref={target}
+      className={`${needFold ? styles.fold : ''} ${styles.codeBlock}`}
+    >
       {props.children}
-      <button onClick={clickHandler}></button>
+      {needFold ? <button onClick={clickHandler}></button> : null}
     </span>
   )
 }
